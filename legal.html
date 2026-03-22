@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GovBot — Legal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1c1c1a;
+      --ink-mid:   #4a4a44;
+      --ink-light: #7a7a70;
+      --rule:      #d8d6ce;
+      --rule-soft: #eeece6;
+      --bg:        #f5f3ec;
+      --paper:     #faf9f4;
+      --accent:    #2a4a2a;
+      --accent-lt: #3d6b3d;
+      --warn:      #7a3a1a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── MASTHEAD ────────────────────────────────────────── */
+    .masthead {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 3.5rem 2rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 39px,
+        rgba(255,255,255,0.03) 39px,
+        rgba(255,255,255,0.03) 40px
+      );
+      pointer-events: none;
+    }
+
+    .masthead-seal {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .masthead-title {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.5rem;
+      color: #f0ede4;
+    }
+
+    .masthead-sub {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.45);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── NAV TABS ─────────────────────────────────────────── */
+    .tab-bar {
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .tab {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      padding: 1rem 2rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      text-decoration: none;
+      transition: color 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+
+    .tab:hover { color: var(--ink); }
+    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── LAYOUT ───────────────────────────────────────────── */
+    .page-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem 6rem;
+    }
+
+    .doc { display: none; padding-top: 3rem; }
+    .doc.active { display: block; }
+
+    /* ── DOCUMENT HEADER ──────────────────────────────────── */
+    .doc-header {
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .doc-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .doc-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .doc-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--ink-light);
+    }
+
+    .doc-meta span { display: flex; align-items: center; gap: 0.35rem; }
+
+    /* ── SECTION ──────────────────────────────────────────── */
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section-num {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-bottom: 0.35rem;
+    }
+
+    .section-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+
+    .section p {
+      color: var(--ink-mid);
+      margin-bottom: 0.875rem;
+    }
+
+    .section p:last-child { margin-bottom: 0; }
+
+    /* ── LIST ─────────────────────────────────────────────── */
+    .legal-list {
+      list-style: none;
+      margin: 0.75rem 0 0.875rem;
+      padding: 0;
+    }
+
+    .legal-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      color: var(--ink-mid);
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--rule-soft);
+    }
+
+    .legal-list li:last-child { border-bottom: none; }
+
+    .legal-list li::before {
+      content: '—';
+      color: var(--rule);
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+      font-family: 'Libre Baskerville', serif;
+    }
+
+    /* ── CALLOUT ──────────────────────────────────────────── */
+    .callout {
+      border-left: 3px solid var(--accent);
+      background: rgba(42,74,42,0.05);
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .callout p { color: var(--ink-mid); margin: 0; font-size: 0.9rem; }
+    .callout strong { color: var(--accent); }
+
+    .callout-warn {
+      border-left-color: var(--warn);
+      background: rgba(122,58,26,0.05);
+    }
+
+    .callout-warn p { color: var(--ink-mid); }
+    .callout-warn strong { color: var(--warn); }
+
+    /* ── DATA TABLE ───────────────────────────────────────── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+
+    .data-table th {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      padding: 0.6rem 1rem;
+      text-align: left;
+      border-bottom: 2px solid var(--rule);
+      background: var(--rule-soft);
+    }
+
+    .data-table td {
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--rule-soft);
+      color: var(--ink-mid);
+      vertical-align: top;
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* ── DIVIDER ──────────────────────────────────────────── */
+    .rule {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 2.5rem 0;
+    }
+
+    /* ── CONTACT BLOCK ────────────────────────────────────── */
+    .contact-block {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .contact-block p { color: var(--ink-mid); margin-bottom: 0.4rem; font-size: 0.9rem; }
+    .contact-block p:last-child { margin-bottom: 0; }
+    .contact-block a { color: var(--accent-lt); text-decoration: none; border-bottom: 1px solid currentColor; }
+    .contact-block a:hover { color: var(--accent); }
+
+    /* ── FOOTER ───────────────────────────────────────────── */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.75rem;
+      color: var(--ink-light);
+      background: var(--paper);
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .tab { padding: 0.875rem 1.25rem; font-size: 0.72rem; }
+      .doc-meta { gap: 0.75rem; }
+      .data-table th, .data-table td { padding: 0.5rem 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav style="background:var(--paper);border-bottom:1px solid var(--rule);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;">
+  <a href="index.html" style="font-family:'Libre Baskerville',serif;font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none;">🏛️ GovBot</a>
+  <div style="display:flex;gap:0.25rem;">
+    <a href="index.html" style="font-size:0.82rem;font-weight:500;color:var(--ink-light);text-decoration:none;padding:0.4rem 0.75rem;border-radius:5px;">Home</a>
+    <a href="legal.html" style="font-size:0.82rem;font-weight:500;color:var(--accent);text-decoration:none;padding:0.4rem 0.75rem;border-radius:5px;">Legal</a>
+  </div>
+</nav>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <span class="masthead-seal">🏛️</span>
+  <h1 class="masthead-title">GovBot — Legal Documents</h1>
+  <p class="masthead-sub">Terms of Service &nbsp;·&nbsp; Privacy Policy</p>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <a class="tab active" onclick="show('tos', this)">Terms of Service</a>
+  <a class="tab" onclick="show('pp', this)">Privacy Policy</a>
+</div>
+
+<div class="page-wrap">
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- TERMS OF SERVICE                                        -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div id="tos" class="doc active">
+    <div class="doc-header">
+      <div class="doc-label">Legal Document</div>
+      <h2 class="doc-title">Terms of Service</h2>
+      <div class="doc-meta">
+        <span>📅 Effective: January 1, 2025</span>
+        <span>🔄 Last Updated: March 2026</span>
+        <span>📋 Version 1.0</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Plain English Summary:</strong> GovBot is a free Discord bot for running mock governments. By adding it to your server or using it as a citizen, you agree to these terms. Don't abuse it, don't use it for anything harmful, and understand it's provided as-is.</p>
+    </div>
+
+    <!-- 1 -->
+    <div class="section">
+      <div class="section-num">Section 1</div>
+      <h3 class="section-title">Acceptance of Terms</h3>
+      <p>By adding GovBot to a Discord server, using its slash commands, or accessing the GovBot web dashboard, you ("User") agree to be bound by these Terms of Service ("Terms"). If you are adding GovBot on behalf of a Discord server, you represent that you have the authority to do so and that your server's members will be subject to these Terms.</p>
+      <p>If you do not agree to these Terms, do not add GovBot to your server or use any of its features.</p>
+    </div>
+
+    <!-- 2 -->
+    <div class="section">
+      <div class="section-num">Section 2</div>
+      <h3 class="section-title">Description of Service</h3>
+      <p>GovBot is a Discord bot designed to facilitate mock-government roleplay communities ("Servers"). It provides tools including:</p>
+      <ul class="legal-list">
+        <li>Election management with First-Past-the-Post and Ranked Choice voting</li>
+        <li>Political party creation and membership tracking</li>
+        <li>Legislative bill proposals, co-sponsorship, and voting</li>
+        <li>A judicial system for filing and adjudicating court cases</li>
+        <li>Referendum and citizen initiative systems</li>
+        <li>Impeachment proceedings for officeholders</li>
+        <li>Government office management with term limit enforcement</li>
+        <li>A fictional treasury system with a government balance, citizen wallets, and in-simulation transactions</li>
+        <li>A web dashboard for viewing government data</li>
+      </ul>
+      <p>GovBot is intended solely for fictional, recreational, and educational mock-government roleplay. It is not affiliated with any real government, political party, or political organisation.</p>
+    </div>
+
+    <!-- 3 -->
+    <div class="section">
+      <div class="section-num">Section 3</div>
+      <h3 class="section-title">Eligibility</h3>
+      <p>You must comply with Discord's own <a href="https://discord.com/terms" target="_blank" style="color:var(--accent-lt);text-decoration:none;border-bottom:1px solid currentColor">Terms of Service</a> and <a href="https://discord.com/guidelines" target="_blank" style="color:var(--accent-lt);text-decoration:none;border-bottom:1px solid currentColor">Community Guidelines</a> to use GovBot. Use of GovBot constitutes your agreement that you meet Discord's age requirements and are not prohibited from using Discord's services.</p>
+    </div>
+
+    <!-- 4 -->
+    <div class="section">
+      <div class="section-num">Section 4</div>
+      <h3 class="section-title">Server Administrator Responsibilities</h3>
+      <p>Server administrators who add GovBot are responsible for:</p>
+      <ul class="legal-list">
+        <li>Configuring the bot appropriately for their community using <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/setup</code> commands</li>
+        <li>Ensuring their server members are aware of and agree to these Terms</li>
+        <li>Moderating the use of GovBot features within their server in accordance with Discord's guidelines</li>
+        <li>Not using GovBot's administrative commands (such as <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/impeach</code>, <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/office appoint</code>, <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/election close</code>) to harass, manipulate, or disadvantage specific members unfairly</li>
+        <li>Ensuring GovBot is used for mock-government roleplay and not for any real-world political organising or campaigning</li>
+      </ul>
+    </div>
+
+    <!-- 5 -->
+    <div class="section">
+      <div class="section-num">Section 5</div>
+      <h3 class="section-title">Acceptable Use</h3>
+      <p>You agree not to use GovBot to:</p>
+      <ul class="legal-list">
+        <li>Harass, bully, threaten, or harm other users</li>
+        <li>Spread hate speech, discriminatory content, or content that violates Discord's Community Guidelines</li>
+        <li>Attempt to exploit, hack, or otherwise interfere with the bot's operation or database</li>
+        <li>Automate interactions with the bot in a way that disrupts service for other users</li>
+        <li>Use the bot's government simulation features to organise or promote real-world political activity</li>
+        <li>Impersonate real political figures, governments, or organisations in a harmful or misleading way</li>
+        <li>Circumvent the bot's permission system or term limit enforcement through technical means</li>
+        <li>Use the treasury or wallet system to harass other members — for example, repeatedly fining or spamming payments to a specific user as a form of targeted harassment</li>
+      </ul>
+
+      <div class="callout-warn callout" style="margin-top:1rem">
+        <p><strong>Important:</strong> GovBot is a roleplay tool. Court cases, elections, impeachments, and treasury balances within the bot are fictional game mechanics. No outcome within GovBot — including treasury transactions — has any legal, financial, political, or real-world significance. In-simulation currency has no monetary value.</p>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="section">
+      <div class="section-num">Section 6</div>
+      <h3 class="section-title">Dashboard and OAuth2 Authentication</h3>
+      <p>The GovBot web dashboard uses Discord's OAuth2 system to authenticate users. By logging in to the dashboard you authorise GovBot to read your Discord user ID, username, avatar, and the list of servers you are a member of. This information is used only to display your profile and to filter the dashboard to servers you have access to.</p>
+      <p>Dashboard sessions are stored temporarily and expire after 24 hours of inactivity. You can revoke GovBot's OAuth2 access at any time from your Discord account's <strong>Authorized Apps</strong> settings.</p>
+    </div>
+
+    <!-- 7 -->
+    <div class="section">
+      <div class="section-num">Section 7</div>
+      <h3 class="section-title">DM Reminders</h3>
+      <p>The <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/remind set</code> command allows you to opt in to receiving a direct message from GovBot before an election closes. By using this command you explicitly consent to receiving that single DM. You can cancel any reminder with <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/remind cancel</code>, and GovBot will never send unsolicited DMs.</p>
+    </div>
+
+    <!-- 8 -->
+    <div class="section">
+      <div class="section-num">Section 8</div>
+      <h3 class="section-title">Intellectual Property</h3>
+      <p>GovBot's source code, design, and documentation are the property of the developer. The bot is made available as a hosted service for mock-government communities. You may not copy, redistribute, or commercialise GovBot's hosted service or its codebase without express written permission.</p>
+      <p>Content submitted through GovBot (bill text, platform statements, court rulings, constitutional articles, etc.) remains the property of the users who submitted it. By submitting content, you grant GovBot a limited licence to store and display that content within the context of your server's government simulation.</p>
+    </div>
+
+    <!-- 9 -->
+    <div class="section">
+      <div class="section-num">Section 9</div>
+      <h3 class="section-title">Service Availability and Modifications</h3>
+      <p>GovBot is provided free of charge on a best-effort basis. We do not guarantee continuous, uninterrupted availability of the service. We reserve the right to:</p>
+      <ul class="legal-list">
+        <li>Modify, suspend, or discontinue any feature at any time</li>
+        <li>Update these Terms, with notice provided through the bot's support server or website</li>
+        <li>Remove GovBot from a server if these Terms are violated</li>
+      </ul>
+      <p>We will make reasonable efforts to provide advance notice of significant changes or planned downtime.</p>
+    </div>
+
+    <!-- 10 -->
+    <div class="section">
+      <div class="section-num">Section 10</div>
+      <h3 class="section-title">Disclaimer of Warranties</h3>
+      <p>GovBot is provided <strong>"as is"</strong> and <strong>"as available"</strong> without warranties of any kind, express or implied. We do not warrant that the bot will be error-free, that data will never be lost, or that the service will meet your specific requirements.</p>
+      <p>We are not responsible for any disputes, disagreements, or conflicts that arise within your Discord server as a result of using GovBot's features. The outcomes of elections, trials, and votes within GovBot are simulation mechanics — they carry no authority or obligation beyond what your server's community chooses to assign them.</p>
+    </div>
+
+    <!-- 11 -->
+    <div class="section">
+      <div class="section-num">Section 11</div>
+      <h3 class="section-title">Limitation of Liability</h3>
+      <p>To the maximum extent permitted by applicable law, the developer of GovBot shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the service, including but not limited to loss of data, loss of community, or server disruption.</p>
+    </div>
+
+    <!-- 12 -->
+    <div class="section">
+      <div class="section-num">Section 12</div>
+      <h3 class="section-title">Contact</h3>
+      <p>If you have questions about these Terms or need to report a violation, please reach out through our support server or the contact information below.</p>
+      <div class="contact-block">
+        <p>📬 <strong>Support Server:</strong> Join via the invite link in the bot's profile</p>
+        <p>🐛 <strong>Bug Reports:</strong> Open an issue on the project repository</p>
+        <p>⚖️ <strong>ToS Violations:</strong> Report through the support server</p>
+      </div>
+    </div>
+
+  </div><!-- /#tos -->
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PRIVACY POLICY                                          -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div id="pp" class="doc">
+
+    <div class="doc-header">
+      <div class="doc-label">Legal Document</div>
+      <h2 class="doc-title">Privacy Policy</h2>
+      <div class="doc-meta">
+        <span>📅 Effective: January 1, 2025</span>
+        <span>🔄 Last Updated: March 2026</span>
+        <span>📋 Version 1.0</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Plain English Summary:</strong> GovBot stores the minimum data needed to run your mock government — Discord user IDs, server IDs, and the content you create (bills, votes, party names, etc.). We don't sell your data, don't run ads, and you can request deletion at any time.</p>
+    </div>
+
+    <!-- 1 -->
+    <div class="section">
+      <div class="section-num">Section 1</div>
+      <h3 class="section-title">Who We Are</h3>
+      <p>GovBot is a Discord bot developed and operated as an independent project. This Privacy Policy explains what data GovBot collects, how it is used, and your rights regarding that data. By using GovBot you agree to this policy.</p>
+    </div>
+
+    <!-- 2 -->
+    <div class="section">
+      <div class="section-num">Section 2</div>
+      <h3 class="section-title">Data We Collect</h3>
+      <p>GovBot stores only the data that is necessary to operate its government simulation features. We do not collect names, email addresses, IP addresses, or any data beyond what Discord provides during normal bot interactions.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data Type</th>
+            <th>What it is</th>
+            <th>Why we store it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Discord User ID</strong></td>
+            <td>Your unique Discord user identifier (a number)</td>
+            <td>To associate citizens, votes, bills, cases, and other government actions with a user</td>
+          </tr>
+          <tr>
+            <td><strong>Discord Server ID</strong></td>
+            <td>Your server's unique Discord identifier</td>
+            <td>To separate each server's government data and configuration</td>
+          </tr>
+          <tr>
+            <td><strong>Government Content</strong></td>
+            <td>Bill text, platform statements, court rulings, constitutional articles, party descriptions, initiative text, charges, etc.</td>
+            <td>To operate the government simulation — this is content you voluntarily submit</td>
+          </tr>
+          <tr>
+            <td><strong>Vote Records</strong></td>
+            <td>The fact that you voted, and your choice (for bills, elections, referendums, etc.)</td>
+            <td>To prevent double-voting and to tally results accurately</td>
+          </tr>
+          <tr>
+            <td><strong>Treasury & Wallet Balances</strong></td>
+            <td>Your in-simulation wallet balance and a log of transactions you are involved in (amounts, descriptions, who authorized them)</td>
+            <td>To operate the fictional treasury system — balances and transactions have no real-world monetary value</td>
+          </tr>
+          <tr>
+            <td><strong>Activity Log</strong></td>
+            <td>A record of government actions (who proposed a bill, who filed a case, etc.)</td>
+            <td>To provide transparency and an audit trail within the server</td>
+          </tr>
+          <tr>
+            <td><strong>Admin Audit Log</strong></td>
+            <td>A record of administrative actions taken by server admins (dismissals, announcements, data changes)</td>
+            <td>To provide accountability for administrative actions within the server</td>
+          </tr>
+          <tr>
+            <td><strong>Dashboard Session</strong></td>
+            <td>A temporary session token after OAuth2 login; your Discord username and avatar URL</td>
+            <td>To keep you authenticated on the dashboard for up to 24 hours</td>
+          </tr>
+          <tr>
+            <td><strong>Reminder Preferences</strong></td>
+            <td>Your user ID, election ID, and requested reminder time</td>
+            <td>To send you a DM reminder only if you explicitly opted in with <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px">/remind set</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 3 -->
+    <div class="section">
+      <div class="section-num">Section 3</div>
+      <h3 class="section-title">Data We Do Not Collect</h3>
+      <p>GovBot does not collect, store, or process:</p>
+      <ul class="legal-list">
+        <li>Your real name, email address, or any personally identifiable information beyond your Discord user ID</li>
+        <li>The content of messages you send in Discord channels (GovBot only reads slash command interactions)</li>
+        <li>Your IP address or device information</li>
+        <li>Any data from servers that GovBot is not a member of</li>
+        <li>Real payment information, banking details, or any real-world financial data of any kind — in-simulation wallet balances are fictional numbers with no monetary value</li>
+      </ul>
+    </div>
+
+    <!-- 4 -->
+    <div class="section">
+      <div class="section-num">Section 4</div>
+      <h3 class="section-title">How We Use Your Data</h3>
+      <p>All data collected by GovBot is used exclusively to operate the government simulation features within your Discord server. Specifically:</p>
+      <ul class="legal-list">
+        <li>Your user ID is used to identify you as a citizen, party member, officeholder, voter, or bill sponsor within your server's government</li>
+        <li>Government content you submit is stored and displayed to members of your server as part of the simulation</li>
+        <li>Vote records are used to enforce one-vote-per-person rules and to calculate results</li>
+        <li>The activity log is used to provide a transparent record of government actions visible to your server's members</li>
+        <li>Reminder data is used solely to send you a single DM you explicitly requested</li>
+      </ul>
+      <p>We do not use your data for advertising, profiling, sale to third parties, or any purpose outside of operating GovBot's stated features.</p>
+    </div>
+
+    <!-- 5 -->
+    <div class="section">
+      <div class="section-num">Section 5</div>
+      <h3 class="section-title">Data Storage and Security</h3>
+      <p>GovBot stores all server data in a SQLite database hosted on the same server as the bot. Data is not shared across servers — each server's government data is fully isolated and only accessible to members of that server through the bot's commands and dashboard.</p>
+      <p>Dashboard authentication uses Discord's official OAuth2 system. We do not store your Discord password or token. Session data is stored server-side and expires automatically.</p>
+      <p>While we take reasonable precautions to protect stored data, no system is perfectly secure. We cannot guarantee absolute protection against unauthorised access.</p>
+    </div>
+
+    <!-- 6 -->
+    <div class="section">
+      <div class="section-num">Section 6</div>
+      <h3 class="section-title">Data Sharing and Third Parties</h3>
+      <p>GovBot does not sell, rent, or share your data with third parties. The only external service involved is <strong>Discord</strong>, through whose platform all interactions take place. Discord's own Privacy Policy governs the data Discord collects about you.</p>
+      <p>GovBot's dashboard is served as a standalone web application. It does not load any third-party advertising, tracking scripts, or analytics services.</p>
+    </div>
+
+    <!-- 7 -->
+    <div class="section">
+      <div class="section-num">Section 7</div>
+      <h3 class="section-title">Data Retention</h3>
+      <p>GovBot retains server data for as long as the bot remains in your server. Specific retention rules:</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Retention</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Server configuration & government data</td>
+            <td>Retained while GovBot is in the server; deleted on request after removal</td>
+          </tr>
+          <tr>
+            <td>Closed elections, passed laws, concluded cases</td>
+            <td>Retained indefinitely as a historical record unless deletion is requested</td>
+          </tr>
+          <tr>
+            <td>Treasury balances & transaction history</td>
+            <td>Retained while GovBot is in the server; deleted on request. Wallet balances reset to zero if a citizen is de-registered</td>
+          </tr>
+          <tr>
+            <td>Dashboard session tokens</td>
+            <td>Expire automatically after 24 hours of inactivity</td>
+          </tr>
+          <tr>
+            <td>Sent reminder records</td>
+            <td>Marked as sent and retained briefly for deduplication, then ignored</td>
+          </tr>
+          <tr>
+            <td>Activity logs</td>
+            <td>Retained as part of the server's government history; the most recent 50 entries are displayed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 8 -->
+    <div class="section">
+      <div class="section-num">Section 8</div>
+      <h3 class="section-title">Your Rights</h3>
+      <p>You have the following rights regarding your data stored by GovBot:</p>
+      <ul class="legal-list">
+        <li><strong>Access:</strong> You can view all government data associated with your user ID using the bot's info and profile commands (e.g. <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/citizen profile</code>, <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/stats member</code>)</li>
+        <li><strong>Deletion:</strong> You may request deletion of your personal data from GovBot's database by contacting us through the support server. Note that some data (such as vote tallies and bill records) is aggregated and cannot be individually removed without corrupting the historical record</li>
+        <li><strong>Correction:</strong> If incorrect data has been stored due to a bug, contact us and we will investigate</li>
+        <li><strong>Opt-out of reminders:</strong> Use <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/remind cancel</code> at any time to stop a pending DM reminder</li>
+        <li><strong>Revoke dashboard access:</strong> Remove GovBot's OAuth2 authorisation from Discord's Authorised Apps settings at any time</li>
+      </ul>
+      <div class="callout">
+        <p><strong>Note for EU/EEA residents:</strong> If you are located in the European Economic Area, you may have additional rights under the General Data Protection Regulation (GDPR), including the right to data portability and to lodge a complaint with your local supervisory authority. Please contact us to exercise these rights.</p>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="section">
+      <div class="section-num">Section 9</div>
+      <h3 class="section-title">Children's Privacy</h3>
+      <p>GovBot does not knowingly collect data from users under the age of 13, or under the applicable minimum age in their jurisdiction. GovBot operates within Discord, and access requires compliance with Discord's own age requirements. If you believe a minor's data has been collected, please contact us immediately.</p>
+    </div>
+
+    <!-- 10 -->
+    <div class="section">
+      <div class="section-num">Section 10</div>
+      <h3 class="section-title">Changes to This Policy</h3>
+      <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last Updated" date at the top of this document and announce significant changes through our support server. Continued use of GovBot after changes are posted constitutes your acceptance of the updated policy.</p>
+    </div>
+
+    <!-- 11 -->
+    <div class="section">
+      <div class="section-num">Section 11</div>
+      <h3 class="section-title">Contact & Data Requests</h3>
+      <p>For privacy-related questions, data deletion requests, or to exercise any of your rights, please reach out through our support server. We aim to respond to all requests within 14 days.</p>
+      <div class="contact-block">
+        <p>📬 <strong>Support Server:</strong> Join via the invite link in the bot's profile</p>
+        <p>🔐 <strong>Data Deletion Requests:</strong> Message through the support server with your Discord user ID</p>
+        <p>📋 <strong>GDPR Requests:</strong> Mark your message as "GDPR Request" for priority handling</p>
+      </div>
+    </div>
+
+  </div><!-- /#pp -->
+
+</div><!-- /.page-wrap -->
+
+<div class="footer">
+  GovBot &nbsp;·&nbsp; Mock Government Discord Bot &nbsp;·&nbsp; These documents were last updated March 2026 &nbsp;·&nbsp; <a href="index.html" style="color:var(--accent-lt);text-decoration:none">← Back to home</a>
+</div>
+
+<script>
+  function show(id, el) {
+    document.querySelectorAll('.doc').forEach(d => d.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if (el) el.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.replaceState(null, '', '#' + id);
+  }
+
+  // Handle deep links on load (#tos or #pp)
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'pp') {
+      const tab = document.querySelector('.tab:last-child');
+      show('pp', tab);
+    }
+  });
+</script>
+
+</body>
+</html>
