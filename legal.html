@@ -5,329 +5,341 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GovBot — Legal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink:       #1c1c1a;
-      --ink-mid:   #4a4a44;
-      --ink-light: #7a7a70;
-      --rule:      #d8d6ce;
-      --rule-soft: #eeece6;
-      --bg:        #f5f3ec;
-      --paper:     #faf9f4;
-      --accent:    #2a4a2a;
-      --accent-lt: #3d6b3d;
-      --warn:      #7a3a1a;
+      --bg:        #0d0d0f;
+      --surface:   #141416;
+      --surface2:  #1a1a1e;
+      --border:    #252528;
+      --border2:   #2e2e33;
+      --text:      #e8e8ed;
+      --text-mid:  #9898a8;
+      --text-dim:  #55555f;
+      --accent:    #5865f2;
+      --accent-lt: #7983f5;
+      --green:     #22c55e;
+      --yellow:    #eab308;
+      --red:       #ef4444;
+      --warn-bg:   rgba(234,179,8,0.06);
+      --warn-border: rgba(234,179,8,0.2);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', system-ui, sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       background: var(--bg);
-      color: var(--ink);
-      font-size: 15px;
-      line-height: 1.7;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── MASTHEAD ────────────────────────────────────────── */
+    /* ── NAV ──────────────────────────────────────────────── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-brand {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links { display: flex; gap: 0.125rem; align-items: center; }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      padding: 0.35rem 0.65rem;
+      border-radius: 5px;
+      transition: color 0.1s, background 0.1s;
+    }
+
+    .nav-links a:hover { color: var(--text); background: var(--surface2); }
+    .nav-links a.active { color: var(--text); }
+
+    /* ── STATUS BADGE ─────────────────────────────────────── */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.25rem 0.6rem;
+      border-radius: 99px;
+      border: 1px solid;
+      margin-left: 0.75rem;
+    }
+
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    .status-online  { color: var(--green);  border-color: rgba(34,197,94,0.25);  background: rgba(34,197,94,0.08);  }
+    .status-online  .status-dot { background: var(--green);  box-shadow: 0 0 0 2px rgba(34,197,94,0.2); }
+    .status-degraded { color: var(--yellow); border-color: rgba(234,179,8,0.25); background: rgba(234,179,8,0.08); }
+    .status-degraded .status-dot { background: var(--yellow); box-shadow: 0 0 0 2px rgba(234,179,8,0.2); }
+    .status-offline { color: var(--red);    border-color: rgba(239,68,68,0.25);  background: rgba(239,68,68,0.08);  }
+    .status-offline .status-dot { background: var(--red);    box-shadow: 0 0 0 2px rgba(239,68,68,0.2); }
+
+    /* ── MASTHEAD ─────────────────────────────────────────── */
     .masthead {
-      background: var(--ink);
-      color: var(--bg);
-      padding: 3.5rem 2rem 3rem;
+      padding: 3rem 2rem 2.5rem;
       text-align: center;
-      position: relative;
-      overflow: hidden;
+      border-bottom: 1px solid var(--border);
     }
 
-    .masthead::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 39px,
-        rgba(255,255,255,0.03) 39px,
-        rgba(255,255,255,0.03) 40px
-      );
-      pointer-events: none;
-    }
-
-    .masthead-seal {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
+    .masthead-seal { font-size: 2rem; margin-bottom: 1rem; display: block; }
 
     .masthead-title {
-      font-family: 'Libre Baskerville', Georgia, serif;
-      font-size: clamp(1.6rem, 4vw, 2.8rem);
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      margin-bottom: 0.5rem;
-      color: #f0ede4;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.35rem;
+      color: var(--text);
     }
 
     .masthead-sub {
-      font-size: 0.875rem;
-      color: rgba(255,255,255,0.45);
-      font-weight: 300;
-      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      font-weight: 400;
+      letter-spacing: 0.02em;
     }
 
-    /* ── NAV TABS ─────────────────────────────────────────── */
+    /* ── TAB BAR ──────────────────────────────────────────── */
     .tab-bar {
-      background: var(--paper);
-      border-bottom: 1px solid var(--rule);
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: center;
       gap: 0;
       position: sticky;
-      top: 0;
+      top: 52px;
       z-index: 50;
     }
 
     .tab {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 500;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--ink-light);
-      padding: 1rem 2rem;
+      color: var(--text-dim);
+      padding: 0.875rem 2rem;
       cursor: pointer;
       border-bottom: 2px solid transparent;
       text-decoration: none;
-      transition: color 0.15s, border-color 0.15s;
+      transition: color 0.1s, border-color 0.1s;
       user-select: none;
     }
 
-    .tab:hover { color: var(--ink); }
-    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab:hover { color: var(--text-mid); }
+    .tab.active { color: var(--accent-lt); border-bottom-color: var(--accent); }
 
     /* ── LAYOUT ───────────────────────────────────────────── */
-    .page-wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 1.5rem 6rem;
-    }
-
-    .doc { display: none; padding-top: 3rem; }
+    .page-wrap { max-width: 800px; margin: 0 auto; padding: 0 1.5rem 6rem; }
+    .doc { display: none; padding-top: 2.5rem; }
     .doc.active { display: block; }
 
     /* ── DOCUMENT HEADER ──────────────────────────────────── */
     .doc-header {
-      border-bottom: 2px solid var(--ink);
+      border-bottom: 1px solid var(--border);
       padding-bottom: 1.5rem;
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
     }
 
     .doc-label {
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--ink-light);
-      margin-bottom: 0.5rem;
+      color: var(--text-dim);
+      margin-bottom: 0.4rem;
     }
 
     .doc-title {
-      font-family: 'Libre Baskerville', serif;
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 700;
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      font-weight: 600;
       line-height: 1.2;
-      color: var(--ink);
+      letter-spacing: -0.025em;
+      color: var(--text);
       margin-bottom: 1rem;
     }
 
     .doc-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.5rem;
-      font-size: 0.8rem;
-      color: var(--ink-light);
+      gap: 1.25rem;
+      font-size: 0.75rem;
+      color: var(--text-dim);
     }
 
     .doc-meta span { display: flex; align-items: center; gap: 0.35rem; }
 
     /* ── SECTION ──────────────────────────────────────────── */
-    .section {
-      margin-bottom: 3rem;
-    }
+    .section { margin-bottom: 2.5rem; }
 
     .section-num {
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--accent-lt);
-      margin-bottom: 0.35rem;
+      color: var(--text-dim);
+      margin-bottom: 0.3rem;
     }
 
     .section-title {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--rule-soft);
-    }
-
-    .section p {
-      color: var(--ink-mid);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
       margin-bottom: 0.875rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: -0.01em;
     }
 
+    .section p { color: var(--text-mid); margin-bottom: 0.75rem; font-size: 0.855rem; }
     .section p:last-child { margin-bottom: 0; }
 
     /* ── LIST ─────────────────────────────────────────────── */
-    .legal-list {
-      list-style: none;
-      margin: 0.75rem 0 0.875rem;
-      padding: 0;
-    }
+    .legal-list { list-style: none; margin: 0.75rem 0 0.875rem; padding: 0; }
 
     .legal-list li {
       display: flex;
       align-items: flex-start;
       gap: 0.75rem;
-      color: var(--ink-mid);
-      padding: 0.35rem 0;
-      border-bottom: 1px solid var(--rule-soft);
+      color: var(--text-mid);
+      padding: 0.3rem 0;
+      font-size: 0.855rem;
+      line-height: 1.55;
     }
-
-    .legal-list li:last-child { border-bottom: none; }
 
     .legal-list li::before {
       content: '—';
-      color: var(--rule);
+      color: var(--text-dim);
       flex-shrink: 0;
-      margin-top: 0.05rem;
-      font-family: 'Libre Baskerville', serif;
+      margin-top: 0.05em;
     }
 
     /* ── CALLOUT ──────────────────────────────────────────── */
     .callout {
-      border-left: 3px solid var(--accent);
-      background: rgba(42,74,42,0.05);
-      padding: 1rem 1.25rem;
-      margin: 1.25rem 0;
-      border-radius: 0 4px 4px 0;
+      background: var(--warn-bg);
+      border: 1px solid var(--warn-border);
+      border-radius: 6px;
+      padding: 1rem 1.1rem;
+      margin-top: 1rem;
     }
 
-    .callout p { color: var(--ink-mid); margin: 0; font-size: 0.9rem; }
-    .callout strong { color: var(--accent); }
+    .callout p { color: var(--text-mid); margin: 0; font-size: 0.835rem; }
+    .callout strong { color: var(--yellow); }
 
-    .callout-warn {
-      border-left-color: var(--warn);
-      background: rgba(122,58,26,0.05);
+    /* ── TABLE ────────────────────────────────────────────── */
+    .legal-table-wrap {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-radius: 6px;
+      border: 1px solid var(--border);
     }
 
-    .callout-warn p { color: var(--ink-mid); }
-    .callout-warn strong { color: var(--warn); }
-
-    /* ── DATA TABLE ───────────────────────────────────────── */
-    .data-table {
+    .legal-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
-      margin: 1rem 0;
+      font-size: 0.8rem;
     }
 
-    .data-table th {
-      font-size: 0.68rem;
+    .legal-table th {
+      background: var(--surface2);
+      color: var(--text-mid);
       font-weight: 500;
-      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      color: var(--ink-light);
-      padding: 0.6rem 1rem;
       text-align: left;
-      border-bottom: 2px solid var(--rule);
-      background: var(--rule-soft);
-    }
-
-    .data-table td {
       padding: 0.65rem 1rem;
-      border-bottom: 1px solid var(--rule-soft);
-      color: var(--ink-mid);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .legal-table td {
+      padding: 0.65rem 1rem;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--border);
       vertical-align: top;
+      line-height: 1.5;
     }
 
-    .data-table tr:last-child td { border-bottom: none; }
-
-    /* ── DIVIDER ──────────────────────────────────────────── */
-    .rule {
-      border: none;
-      border-top: 1px solid var(--rule);
-      margin: 2.5rem 0;
-    }
+    .legal-table tr:last-child td { border-bottom: none; }
+    .legal-table tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
 
     /* ── CONTACT BLOCK ────────────────────────────────────── */
     .contact-block {
-      background: var(--paper);
-      border: 1px solid var(--rule);
+      background: var(--surface2);
+      border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 1.5rem;
-      margin-top: 1.25rem;
+      padding: 1rem 1.1rem;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
     }
 
-    .contact-block p { color: var(--ink-mid); margin-bottom: 0.4rem; font-size: 0.9rem; }
-    .contact-block p:last-child { margin-bottom: 0; }
-    .contact-block a { color: var(--accent-lt); text-decoration: none; border-bottom: 1px solid currentColor; }
-    .contact-block a:hover { color: var(--accent); }
+    .contact-block p { color: var(--text-mid); margin: 0; font-size: 0.835rem; }
 
     /* ── FOOTER ───────────────────────────────────────────── */
     .footer {
       text-align: center;
-      padding: 2rem;
-      border-top: 1px solid var(--rule);
-      font-size: 0.75rem;
-      color: var(--ink-light);
-      background: var(--paper);
-    }
-
-    /* ── RESPONSIVE ───────────────────────────────────────── */
-    @media (max-width: 600px) {
-      .tab { padding: 0.875rem 1.25rem; font-size: 0.72rem; }
-      .doc-meta { gap: 0.75rem; }
-      .data-table th, .data-table td { padding: 0.5rem 0.6rem; }
+      padding: 1.75rem 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.74rem;
+      color: var(--text-dim);
+      background: var(--surface);
     }
   </style>
 </head>
 <body>
 
-<nav style="background:var(--paper);border-bottom:1px solid var(--rule);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;">
-  <a href="index.html" style="font-family:'Libre Baskerville',serif;font-weight:700;font-size:1.05rem;color:var(--ink);text-decoration:none;">🏛️ GovBot</a>
-  <div style="display:flex;gap:0.25rem;">
-    <a href="index.html" style="font-size:0.82rem;font-weight:500;color:var(--ink-light);text-decoration:none;padding:0.4rem 0.75rem;border-radius:5px;">Home</a>
-    <a href="legal.html" style="font-size:0.82rem;font-weight:500;color:var(--accent);text-decoration:none;padding:0.4rem 0.75rem;border-radius:5px;">Legal</a>
+<nav>
+  <a class="nav-brand" href="index.html">🏛️ GovBot</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="legal.html" class="active">Legal</a>
+    <!-- ═══ STATUS — match to index.html ════════════════════ -->
+    <span class="status-badge status-online">
+      <span class="status-dot"></span>
+      <span class="status-text">Online</span>
+    </span>
   </div>
 </nav>
 
-<!-- MASTHEAD -->
 <div class="masthead">
-  <span class="masthead-seal">🏛️</span>
-  <h1 class="masthead-title">GovBot — Legal Documents</h1>
-  <p class="masthead-sub">Terms of Service &nbsp;·&nbsp; Privacy Policy</p>
+  <span class="masthead-seal">📋</span>
+  <div class="masthead-title">Legal Documents</div>
+  <div class="masthead-sub">Terms of Service &amp; Privacy Policy</div>
 </div>
 
-<!-- TAB BAR -->
 <div class="tab-bar">
-  <a class="tab active" onclick="show('tos', this)">Terms of Service</a>
-  <a class="tab" onclick="show('pp', this)">Privacy Policy</a>
+  <a class="tab active" onclick="show('tos', this); return false;" href="#tos">Terms of Service</a>
+  <a class="tab" onclick="show('pp', this); return false;" href="#pp">Privacy Policy</a>
 </div>
 
 <div class="page-wrap">
-
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <!-- TERMS OF SERVICE                                        -->
-  <!-- ═══════════════════════════════════════════════════════ -->
-  <div id="tos" class="doc active">
+<div id="tos" class="doc active">
     <div class="doc-header">
       <div class="doc-label">Legal Document</div>
       <h2 class="doc-title">Terms of Service</h2>
@@ -382,10 +394,10 @@
       <h3 class="section-title">Server Administrator Responsibilities</h3>
       <p>Server administrators who add GovBot are responsible for:</p>
       <ul class="legal-list">
-        <li>Configuring the bot appropriately for their community using <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/setup</code> commands</li>
+        <li>Configuring the bot appropriately for their community using <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/setup</code> commands</li>
         <li>Ensuring their server members are aware of and agree to these Terms</li>
         <li>Moderating the use of GovBot features within their server in accordance with Discord's guidelines</li>
-        <li>Not using GovBot's administrative commands (such as <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/impeach</code>, <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/office appoint</code>, <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/election close</code>) to harass, manipulate, or disadvantage specific members unfairly</li>
+        <li>Not using GovBot's administrative commands (such as <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/impeach</code>, <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/office appoint</code>, <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/election close</code>) to harass, manipulate, or disadvantage specific members unfairly</li>
         <li>Ensuring GovBot is used for mock-government roleplay and not for any real-world political organising or campaigning</li>
       </ul>
     </div>
@@ -423,7 +435,7 @@
     <div class="section">
       <div class="section-num">Section 7</div>
       <h3 class="section-title">DM Reminders</h3>
-      <p>The <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/remind set</code> command allows you to opt in to receiving a direct message from GovBot before an election closes. By using this command you explicitly consent to receiving that single DM. You can cancel any reminder with <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/remind cancel</code>, and GovBot will never send unsolicited DMs.</p>
+      <p>The <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/remind set</code> command allows you to opt in to receiving a direct message from GovBot before an election closes. By using this command you explicitly consent to receiving that single DM. You can cancel any reminder with <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/remind cancel</code>, and GovBot will never send unsolicited DMs.</p>
     </div>
 
     <!-- 8 -->
@@ -661,10 +673,10 @@
       <h3 class="section-title">Your Rights</h3>
       <p>You have the following rights regarding your data stored by GovBot:</p>
       <ul class="legal-list">
-        <li><strong>Access:</strong> You can view all government data associated with your user ID using the bot's info and profile commands (e.g. <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/citizen profile</code>, <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/stats member</code>)</li>
+        <li><strong>Access:</strong> You can view all government data associated with your user ID using the bot's info and profile commands (e.g. <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/citizen profile</code>, <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/stats member</code>)</li>
         <li><strong>Deletion:</strong> You may request deletion of your personal data from GovBot's database by contacting us through the support server. Note that some data (such as vote tallies and bill records) is aggregated and cannot be individually removed without corrupting the historical record</li>
         <li><strong>Correction:</strong> If incorrect data has been stored due to a bug, contact us and we will investigate</li>
-        <li><strong>Opt-out of reminders:</strong> Use <code style="background:var(--rule-soft);padding:0.1em 0.3em;border-radius:3px;font-size:0.85em">/remind cancel</code> at any time to stop a pending DM reminder</li>
+        <li><strong>Opt-out of reminders:</strong> Use <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/remind cancel</code> at any time to stop a pending DM reminder</li>
         <li><strong>Revoke dashboard access:</strong> Remove GovBot's OAuth2 authorisation from Discord's Authorised Apps settings at any time</li>
       </ul>
       <div class="callout">
@@ -701,9 +713,9 @@
   </div><!-- /#pp -->
 
 </div><!-- /.page-wrap -->
-
 <div class="footer">
-  GovBot &nbsp;·&nbsp; Mock Government Discord Bot &nbsp;·&nbsp; These documents were last updated March 2026 &nbsp;·&nbsp; <a href="index.html" style="color:var(--accent-lt);text-decoration:none">← Back to home</a>
+  GovBot &nbsp;·&nbsp; Mock Government Discord Bot &nbsp;·&nbsp; Last updated March 2026 &nbsp;·&nbsp;
+  <a href="index.html" style="color:var(--accent-lt);text-decoration:none">← Back to home</a>
 </div>
 
 <script>
@@ -716,7 +728,6 @@
     history.replaceState(null, '', '#' + id);
   }
 
-  // Handle deep links on load (#tos or #pp)
   window.addEventListener('DOMContentLoaded', () => {
     const hash = window.location.hash.replace('#', '');
     if (hash === 'pp') {
