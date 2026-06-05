@@ -6,326 +6,841 @@
   <title>GovBot — Mock Government Discord Bot</title>
   <meta name="description" content="A full-featured Discord bot for mock-government servers. Elections, legislature, judiciary, treasury, and more." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0d0d0f;
-      --surface:   #141416;
-      --surface2:  #1a1a1e;
-      --border:    #252528;
-      --border2:   #2e2e33;
-      --text:      #e8e8ed;
-      --text-mid:  #9898a8;
-      --text-dim:  #55555f;
-      --accent:    #5865f2;
-      --accent-lt: #7983f5;
-      --green:     #22c55e;
-      --yellow:    #eab308;
-      --red:       #ef4444;
+      --stone-950:  #0c0b09;
+      --stone-900:  #131210;
+      --stone-850:  #1a1915;
+      --stone-800:  #23211c;
+      --stone-700:  #2e2c25;
+      --stone-600:  #3d3b32;
+      --stone-400:  #6b6858;
+      --stone-300:  #9a9784;
+      --stone-200:  #c8c4b0;
+      --stone-100:  #e8e4d4;
+      --parchment:  #f2ecdc;
+
+      --brass:      #c9a84c;
+      --brass-lt:   #e2c870;
+      --brass-dk:   #8a6c28;
+      --crimson:    #9b1c1c;
+      --crimson-lt: #c73232;
+      --emerald:    #2a6b4a;
+      --emerald-lt: #3d9b6b;
+
+      --accent:     var(--brass);
+      --accent-lt:  var(--brass-lt);
+
+      --serif:      'Playfair Display', 'Georgia', serif;
+      --body:       'Crimson Pro', 'Georgia', serif;
+      --mono:       'JetBrains Mono', 'Courier New', monospace;
+
+      --nav-h:      60px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 14px;
-      line-height: 1.6;
+      font-family: var(--body);
+      background: var(--stone-950);
+      color: var(--stone-200);
+      font-size: 16px;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* ── NAV ──────────────────────────────────────────────── */
+    /* ── NOISE TEXTURE OVERLAY ─────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+    }
+
+    /* ── NAV ──────────────────────────────────────────────────  */
     nav {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      height: var(--nav-h);
+      background: rgba(12, 11, 9, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.18);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 52px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      padding: 0 2.5rem;
+    }
+
+    nav::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4) 30%, rgba(201,168,76,0.4) 70%, transparent);
     }
 
     .nav-brand {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text);
-      text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      letter-spacing: -0.01em;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--stone-100);
     }
 
-    .nav-links { display: flex; gap: 0.125rem; align-items: center; }
+    .nav-seal {
+      width: 30px;
+      height: 30px;
+      border: 1.5px solid var(--brass);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: var(--brass);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .nav-seal::before {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50%;
+    }
+
+    .nav-wordmark {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--stone-100);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
 
     .nav-links a {
+      font-family: var(--body);
       font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-mid);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--stone-300);
       text-decoration: none;
-      padding: 0.35rem 0.65rem;
-      border-radius: 5px;
-      transition: color 0.1s, background 0.1s;
+      padding: 0.3rem 0.75rem;
+      border-radius: 3px;
+      transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: var(--text); background: var(--surface2); }
-    .nav-links a.active { color: var(--text); }
+    .nav-links a:hover { color: var(--parchment); }
+    .nav-links a.active { color: var(--brass-lt); }
 
-    /* ── STATUS BADGE ─────────────────────────────────────── */
-    /* ═══════════════════════════════════════════════════════
-       STATUS — change the class on .status-badge to one of:
-         status-online    → green  "Online"
-         status-degraded  → yellow "Degraded"
-         status-offline   → red    "Offline"
-       Also update the text inside .status-text if you like.
-       ═══════════════════════════════════════════════════════ */
     .status-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      font-size: 0.72rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
       font-weight: 500;
-      padding: 0.25rem 0.6rem;
-      border-radius: 99px;
+      padding: 0.22rem 0.65rem;
+      border-radius: 2px;
       border: 1px solid;
-      margin-left: 0.75rem;
+      margin-left: 0.5rem;
+      letter-spacing: 0.06em;
     }
 
     .status-dot {
-      width: 6px;
-      height: 6px;
+      width: 5px; height: 5px;
       border-radius: 50%;
       flex-shrink: 0;
     }
 
-    .status-online  { color: var(--green);  border-color: rgba(34,197,94,0.25);  background: rgba(34,197,94,0.08);  }
-    .status-online  .status-dot { background: var(--green);  box-shadow: 0 0 0 2px rgba(34,197,94,0.2); }
+    .status-online  { color: #4ade80; border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.07); }
+    .status-online  .status-dot { background: #4ade80; animation: pulse-dot 2.5s ease infinite; }
+    .status-degraded { color: var(--brass-lt); border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.07); }
+    .status-degraded .status-dot { background: var(--brass-lt); }
+    .status-offline { color: var(--crimson-lt); border-color: rgba(155,28,28,0.3); background: rgba(155,28,28,0.07); }
+    .status-offline .status-dot { background: var(--crimson-lt); }
 
-    .status-degraded { color: var(--yellow); border-color: rgba(234,179,8,0.25); background: rgba(234,179,8,0.08); }
-    .status-degraded .status-dot { background: var(--yellow); box-shadow: 0 0 0 2px rgba(234,179,8,0.2); }
-
-    .status-offline { color: var(--red);    border-color: rgba(239,68,68,0.25);  background: rgba(239,68,68,0.08);  }
-    .status-offline .status-dot { background: var(--red);    box-shadow: 0 0 0 2px rgba(239,68,68,0.2); }
-
-    /* ── HERO ─────────────────────────────────────────────── */
-    .hero {
-      padding: 5rem 2rem 4rem;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
+      50%       { opacity: 0.8; box-shadow: 0 0 0 4px rgba(74,222,128,0); }
     }
 
-    .hero-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      display: block;
-      filter: grayscale(0.2);
+    /* ── HERO ─────────────────────────────────────────────────  */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      overflow: hidden;
+    }
+
+    /* radial spotlight */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* decorative horizontal rule lines */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25) 20%, rgba(201,168,76,0.25) 80%, transparent);
+    }
+
+    /* column decorations */
+    .hero-columns {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .col-deco {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(201,168,76,0.08) 20%, rgba(201,168,76,0.08) 80%, transparent);
+    }
+
+    .col-deco:nth-child(1) { left: 10%; }
+    .col-deco:nth-child(2) { left: 90%; }
+    .col-deco:nth-child(3) { left: 25%; opacity: 0.5; }
+    .col-deco:nth-child(4) { left: 75%; opacity: 0.5; }
+
+    .col-cap {
+      position: absolute;
+      top: 0;
+      width: 9px;
+      height: 9px;
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--stone-950);
+    }
+
+    .col-cap.bottom { top: auto; bottom: 0; }
+
+    /* hero seal */
+    .hero-seal {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 2.5rem;
+      animation: seal-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes seal-in {
+      from { opacity: 0; transform: scale(0.7) rotate(-15deg); }
+      to   { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    .seal-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1.5px solid var(--brass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .seal-ring::before {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      border: 1px dashed rgba(201,168,76,0.4);
+    }
+
+    .seal-ring::after {
+      content: '';
+      position: absolute;
+      inset: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .seal-glyph {
+      font-size: 2rem;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 0 8px rgba(201,168,76,0.3));
+    }
+
+    /* rotating text ring */
+    .seal-text-ring {
+      position: absolute;
+      inset: -16px;
+      animation: spin-ring 40s linear infinite;
+    }
+
+    @keyframes spin-ring {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 1rem;
+      animation: fade-up 0.8s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
     .hero-title {
-      font-size: clamp(2rem, 5vw, 2.75rem);
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
+      font-family: var(--serif);
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--parchment);
+      margin-bottom: 0.25rem;
+      animation: fade-up 0.8s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--brass-lt);
+    }
+
+    .hero-rule {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1.25rem 0;
+      animation: fade-up 0.8s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero-rule-line {
+      flex: 1;
+      max-width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--brass-dk));
+    }
+
+    .hero-rule-line.right {
+      background: linear-gradient(90deg, var(--brass-dk), transparent);
+    }
+
+    .hero-rule-diamond {
+      width: 6px;
+      height: 6px;
+      background: var(--brass);
+      transform: rotate(45deg);
+      flex-shrink: 0;
     }
 
     .hero-sub {
-      font-size: 0.95rem;
-      color: var(--text-mid);
-      font-weight: 400;
-      max-width: 460px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.65;
+      font-family: var(--body);
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--stone-300);
+      max-width: 500px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+      font-style: italic;
+      animation: fade-up 0.8s 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
     .hero-actions {
       display: flex;
-      gap: 0.625rem;
+      gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
+      animation: fade-up 0.8s 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
-    /* ── BUTTONS ──────────────────────────────────────────── */
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── BUTTONS ──────────────────────────────────────────────  */
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 500;
-      padding: 0.6rem 1.25rem;
-      border-radius: 6px;
+      gap: 0.5rem;
+      font-family: var(--body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
       text-decoration: none;
-      transition: all 0.12s;
+      transition: all 0.2s;
       cursor: pointer;
       border: none;
-      letter-spacing: -0.005em;
+      position: relative;
+      overflow: hidden;
     }
 
-    .btn-discord { background: var(--accent); color: #fff; }
-    .btn-discord:hover { background: var(--accent-lt); }
-    .btn-outline { background: transparent; color: var(--text-mid); border: 1px solid var(--border2); }
-    .btn-outline:hover { color: var(--text); border-color: var(--text-dim); background: var(--surface2); }
+    .btn-primary {
+      background: var(--brass);
+      color: var(--stone-950);
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    }
 
-    /* ── PAGE WRAP ────────────────────────────────────────── */
-    .page-wrap { max-width: 840px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
 
-    /* ── SECTION HEADERS ──────────────────────────────────── */
-    .section-label {
-      font-size: 0.67rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+    .btn-primary:hover { background: var(--brass-lt); }
+    .btn-primary:hover::after { opacity: 1; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--stone-300);
+      border: 1px solid var(--stone-600);
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    }
+
+    .btn-outline:hover {
+      color: var(--parchment);
+      border-color: var(--stone-400);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* ── SECTION WRAPPER ──────────────────────────────────────  */
+    .page-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    /* ── SECTION TITLE ────────────────────────────────────────  */
+    .section-header {
+      text-align: center;
+      padding: 4.5rem 0 3rem;
+      position: relative;
+    }
+
+    .section-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--text-dim);
-      margin-bottom: 0.5rem;
+      color: var(--brass);
+      margin-bottom: 0.75rem;
+      display: block;
     }
 
-    h2 {
-      font-size: 1.1rem;
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
       font-weight: 600;
-      color: var(--text);
-      margin-bottom: 1.25rem;
+      color: var(--parchment);
       letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
     }
 
-    p { color: var(--text-mid); margin-bottom: 0.75rem; font-size: 0.875rem; }
-    p:last-child { margin-bottom: 0; }
+    .section-sub {
+      font-family: var(--body);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--stone-400);
+      max-width: 440px;
+      margin: 0 auto;
+    }
 
-    /* ── FEATURES GRID ────────────────────────────────────── */
+    .section-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+    }
+
+    .ornament-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4));
+    }
+
+    .ornament-line.right { background: linear-gradient(90deg, rgba(201,168,76,0.4), transparent); }
+
+    .ornament-center {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: rgba(201,168,76,0.5);
+      font-size: 0.6rem;
+    }
+
+    /* ── FEATURES GRID ────────────────────────────────────────  */
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 3rem;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.12);
+      position: relative;
     }
+
+    /* corner accents */
+    .features-grid::before,
+    .features-grid::after,
+    .features-grid .corner-br,
+    .features-grid .corner-bl {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      z-index: 2;
+    }
+
+    .features-grid::before { top: -1px; left: -1px; border-top: 1.5px solid var(--brass); border-left: 1.5px solid var(--brass); }
+    .features-grid::after  { top: -1px; right: -1px; border-top: 1.5px solid var(--brass); border-right: 1.5px solid var(--brass); }
 
     .feature-card {
-      background: var(--surface);
-      padding: 1.25rem 1.25rem 1.35rem;
-      transition: background 0.1s;
+      background: var(--stone-900);
+      padding: 1.75rem 1.5rem 1.85rem;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
     }
 
-    .feature-card:hover { background: var(--surface2); }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px;
+      height: 0;
+      background: linear-gradient(180deg, var(--brass), transparent);
+      transition: height 0.35s;
+    }
 
-    .feature-icon { font-size: 1.2rem; margin-bottom: 0.5rem; display: block; }
+    .feature-card:hover { background: var(--stone-850); }
+    .feature-card:hover::before { height: 100%; }
+
+    .feature-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      display: block;
+      filter: grayscale(0.3);
+    }
 
     .feature-title {
-      font-size: 0.82rem;
+      font-family: var(--serif);
+      font-size: 1rem;
       font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.3rem;
+      color: var(--stone-100);
+      margin-bottom: 0.4rem;
       letter-spacing: -0.01em;
     }
 
-    .feature-desc { font-size: 0.775rem; color: var(--text-mid); line-height: 1.55; }
+    .feature-desc {
+      font-family: var(--body);
+      font-size: 0.875rem;
+      color: var(--stone-400);
+      line-height: 1.6;
+      font-weight: 300;
+    }
 
-    /* ── COMMANDS ─────────────────────────────────────────── */
+    /* ── DIVIDER ──────────────────────────────────────────────  */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 4rem 0;
+    }
+
+    .div-line {
+      flex: 1;
+      height: 1px;
+      background: var(--stone-800);
+    }
+
+    .div-glyph {
+      font-size: 0.7rem;
+      color: var(--stone-600);
+      letter-spacing: 0.2em;
+    }
+
+    /* ── COMMANDS ─────────────────────────────────────────────  */
     .cmd-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-      gap: 0.375rem;
-      margin-bottom: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.5rem;
     }
 
     .cmd-chip {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 0.35rem 0.7rem;
-      font-size: 0.74rem;
-      color: var(--text-mid);
-      font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+      background: var(--stone-900);
+      border: 1px solid var(--stone-800);
+      padding: 0.45rem 0.85rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--stone-400);
+      transition: border-color 0.2s, color 0.2s;
+      cursor: default;
     }
 
-    .cmd-chip strong { color: var(--accent-lt); font-weight: 500; }
+    .cmd-chip:hover {
+      border-color: rgba(201,168,76,0.3);
+      color: var(--stone-200);
+    }
 
-    /* ── DIVIDER ──────────────────────────────────────────── */
-    .divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+    .cmd-chip strong {
+      color: var(--brass-lt);
+      font-weight: 500;
+    }
 
-    /* ── LEGAL LINKS ──────────────────────────────────────── */
-    .legal-links { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-top: 1rem; }
+    .cmd-note {
+      font-family: var(--body);
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--stone-400);
+      margin-top: 1.25rem;
+    }
+
+    .cmd-note code {
+      font-family: var(--mono);
+      font-size: 0.8em;
+      background: var(--stone-800);
+      color: var(--stone-200);
+      padding: 0.1em 0.4em;
+      font-style: normal;
+    }
+
+    /* ── LEGAL STRIP ──────────────────────────────────────────  */
+    .legal-strip {
+      border: 1px solid var(--stone-800);
+      border-left: 2px solid var(--brass-dk);
+      padding: 1.5rem 1.75rem;
+      background: var(--stone-900);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .legal-strip p {
+      font-family: var(--body);
+      font-size: 0.9rem;
+      color: var(--stone-400);
+      line-height: 1.6;
+    }
+
+    .legal-links {
+      display: flex;
+      gap: 1.25rem;
+      flex-shrink: 0;
+    }
 
     .legal-links a {
-      font-size: 0.8rem;
-      color: var(--accent-lt);
+      font-family: var(--body);
+      font-size: 0.85rem;
+      color: var(--brass-lt);
       text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: color 0.2s;
     }
 
-    .legal-links a:hover { color: var(--text); }
+    .legal-links a:hover { color: var(--parchment); }
 
-    /* ── FOOTER ───────────────────────────────────────────── */
+    /* ── FOOTER ───────────────────────────────────────────────  */
     footer {
+      border-top: 1px solid var(--stone-800);
+      background: var(--stone-900);
       text-align: center;
-      padding: 1.75rem 2rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.74rem;
-      color: var(--text-dim);
-      background: var(--surface);
+      padding: 2rem;
+      position: relative;
     }
 
-    footer a { color: var(--text-dim); text-decoration: none; }
-    footer a:hover { color: var(--text-mid); }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2) 30%, rgba(201,168,76,0.2) 70%, transparent);
+    }
+
+    .footer-seal {
+      font-family: var(--serif);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--stone-600);
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-copy {
+      font-family: var(--body);
+      font-size: 0.8rem;
+      color: var(--stone-600);
+    }
+
+    .footer-copy a {
+      color: var(--stone-500);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-copy a:hover { color: var(--stone-300); }
+
+    /* ── SCROLL REVEAL ────────────────────────────────────────  */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* stagger children */
+    .reveal-stagger > * {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal-stagger.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
+    .reveal-stagger.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.06s; }
+    .reveal-stagger.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.12s; }
+    .reveal-stagger.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.18s; }
+    .reveal-stagger.visible > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 0.24s; }
+    .reveal-stagger.visible > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 0.30s; }
+    .reveal-stagger.visible > *:nth-child(7) { opacity: 1; transform: none; transition-delay: 0.36s; }
+    .reveal-stagger.visible > *:nth-child(8) { opacity: 1; transform: none; transition-delay: 0.42s; }
+    .reveal-stagger.visible > *:nth-child(9) { opacity: 1; transform: none; transition-delay: 0.48s; }
+    .reveal-stagger.visible > *:nth-child(10){ opacity: 1; transform: none; transition-delay: 0.54s; }
+    .reveal-stagger.visible > *:nth-child(11){ opacity: 1; transform: none; transition-delay: 0.60s; }
+    .reveal-stagger.visible > *:nth-child(12){ opacity: 1; transform: none; transition-delay: 0.66s; }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <a class="nav-brand" href="index.html">🏛️ GovBot</a>
+  <a class="nav-brand" href="index.html">
+    <div class="nav-seal">🏛</div>
+    <span class="nav-wordmark">GovBot</span>
+  </a>
   <div class="nav-links">
     <a href="index.html" class="active">Home</a>
     <a href="legal.html">Legal</a>
-
-    <!-- ═══ STATUS INDICATOR ═══════════════════════════════════
-         Change the class below to: status-online / status-degraded / status-offline
-         Change the text inside <span class="status-text"> to match.
-         ══════════════════════════════════════════════════════ -->
     <span class="status-badge status-online">
       <span class="status-dot"></span>
-      <span class="status-text">Online</span>
+      Online
     </span>
-
   </div>
 </nav>
 
-<div class="hero">
-  <span class="hero-icon">🏛️</span>
-  <h1 class="hero-title">GovBot</h1>
-  <p class="hero-sub">A full-featured Discord bot for mock-government communities. Elections, legislature, judiciary, treasury, and more.</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-columns">
+    <div class="col-deco"><div class="col-cap"></div><div class="col-cap bottom"></div></div>
+    <div class="col-deco"><div class="col-cap"></div><div class="col-cap bottom"></div></div>
+    <div class="col-deco"></div>
+    <div class="col-deco"></div>
+  </div>
+
+  <div class="hero-seal">
+    <div class="seal-ring">
+      <span class="seal-glyph">🏛</span>
+    </div>
+    <!-- SVG rotating text ring -->
+    <svg class="seal-text-ring" viewBox="0 0 122 122" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <path id="circle-path" d="M 61,61 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0"/>
+      </defs>
+      <text font-family="JetBrains Mono, monospace" font-size="7.5" fill="rgba(201,168,76,0.5)" letter-spacing="3">
+        <textPath href="#circle-path">· GOVBOT · MOCK GOVERNMENT · DISCORD BOT · </textPath>
+      </text>
+    </svg>
+  </div>
+
+  <p class="hero-eyebrow">Official Records &nbsp;·&nbsp; v2.0</p>
+
+  <h1 class="hero-title">Gov<em>Bot</em></h1>
+
+  <div class="hero-rule">
+    <div class="hero-rule-line"></div>
+    <div class="hero-rule-diamond"></div>
+    <div class="hero-rule-line right"></div>
+  </div>
+
+  <p class="hero-sub">A full-featured Discord bot for mock-government communities — elections, legislature, judiciary, treasury, and more.</p>
+
   <div class="hero-actions">
-    <a href="https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&scope=bot+applications.commands&permissions=268445760" class="btn btn-discord">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.091.118 18.124.137 18.15a19.905 19.905 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+    <a href="https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&scope=bot+applications.commands&permissions=268445760" class="btn btn-primary">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.091.118 18.124.137 18.15a19.905 19.905 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
       Add to Discord
     </a>
     <a href="legal.html" class="btn btn-outline">Terms &amp; Privacy</a>
   </div>
-</div>
+</section>
 
+<!-- FEATURES -->
 <div class="page-wrap">
 
-  <div class="section-label">Features</div>
-  <h2>What GovBot does</h2>
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Capabilities</span>
+    <h2 class="section-title">Everything a government needs</h2>
+    <p class="section-sub">From founding election to constitutional amendment — GovBot covers the full civic lifecycle.</p>
+    <div class="section-ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-center">✦ ✦ ✦</div>
+      <div class="ornament-line right"></div>
+    </div>
+  </div>
 
-  <div class="features-grid">
+  <div class="features-grid reveal-stagger">
     <div class="feature-card">
       <span class="feature-icon">🗳️</span>
       <div class="feature-title">Elections</div>
-      <div class="feature-desc">FPTP and Ranked Choice (instant-runoff). Scheduled starts, candidate registration, auto-tally, winner announcement.</div>
+      <div class="feature-desc">FPTP and Ranked Choice instant-runoff. Scheduled starts, candidate registration, auto-tally, and winner announcement.</div>
     </div>
     <div class="feature-card">
       <span class="feature-icon">📊</span>
-      <div class="feature-title">Referendums & Polls</div>
-      <div class="feature-desc">Yes/no referendums and multi-option informal polls. Auto-close at deadline, changeable votes, anonymous mode.</div>
+      <div class="feature-title">Referendums &amp; Polls</div>
+      <div class="feature-desc">Yes/no referendums and multi-option polls. Auto-close at deadline, changeable votes, anonymous mode.</div>
     </div>
     <div class="feature-card">
       <span class="feature-icon">📣</span>
@@ -358,34 +873,42 @@
       <div class="feature-desc">Government balance, citizen wallets, full transaction ledger, grants, fines, salary payments, and peer transfers.</div>
     </div>
     <div class="feature-card">
-      <span class="feature-icon">⚖️</span>
+      <span class="feature-icon">🔨</span>
       <div class="feature-title">Judiciary</div>
       <div class="feature-desc">Appointed judges, file cases, assign and rule, court appeals. Original judge cannot rule on their own appeal.</div>
     </div>
     <div class="feature-card">
       <span class="feature-icon">💼</span>
-      <div class="feature-title">Offices & Term Limits</div>
+      <div class="feature-title">Offices &amp; Term Limits</div>
       <div class="feature-desc">Create positions, appoint or remove holders, sync Discord roles, enforce per-office term limits, track full history.</div>
     </div>
     <div class="feature-card">
       <span class="feature-icon">📖</span>
       <div class="feature-title">Constitution</div>
-      <div class="feature-desc">Ratify and repeal constitutional articles. Full version history stored.</div>
+      <div class="feature-desc">Ratify and repeal constitutional articles. Full ratification history stored.</div>
     </div>
     <div class="feature-card">
       <span class="feature-icon">🔧</span>
       <div class="feature-title">Admin Tools</div>
-      <div class="feature-desc">Audit log, announcements, bulk data management, citizenship gates, server health stats, and a web dashboard.</div>
+      <div class="feature-desc">Audit log, announcements, bulk data management, citizenship gates, server health stats, and an interactive setup wizard.</div>
     </div>
   </div>
 
-  <hr class="divider" />
+  <!-- DIVIDER -->
+  <div class="section-divider reveal">
+    <div class="div-line"></div>
+    <div class="div-glyph">§</div>
+    <div class="div-line"></div>
+  </div>
 
-  <div class="section-label">Commands</div>
-  <h2>Slash commands</h2>
-  <p>GovBot uses slash commands exclusively. Type <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:4px;font-size:0.85em;color:var(--text)">/</code> in any channel to browse the full list.</p>
+  <!-- COMMANDS -->
+  <div class="section-header reveal" style="padding-top: 0;">
+    <span class="section-eyebrow">Reference</span>
+    <h2 class="section-title">Slash commands</h2>
+    <p class="section-sub">Type <code style="font-family:var(--mono);font-size:0.85em;background:var(--stone-800);color:var(--parchment);padding:0.1em 0.4em">/</code> in any channel to browse the full list.</p>
+  </div>
 
-  <div class="cmd-grid" style="margin-top:1rem">
+  <div class="cmd-grid reveal-stagger">
     <div class="cmd-chip"><strong>/election</strong> create list info</div>
     <div class="cmd-chip"><strong>/vote</strong> FPTP + RCV</div>
     <div class="cmd-chip"><strong>/referendum</strong> create vote</div>
@@ -403,27 +926,52 @@
     <div class="cmd-chip"><strong>/citizen</strong> register profile list</div>
     <div class="cmd-chip"><strong>/stats</strong> turnout member</div>
     <div class="cmd-chip"><strong>/admin</strong> auditlog announce</div>
-    <div class="cmd-chip"><strong>/setup</strong> channels parliament oath</div>
+    <div class="cmd-chip"><strong>/setup</strong> wizard</div>
     <div class="cmd-chip"><strong>/government</strong></div>
     <div class="cmd-chip"><strong>/remind</strong> set cancel list</div>
   </div>
 
-  <hr class="divider" />
+  <p class="cmd-note reveal">All commands use Discord's slash command interface — no prefix needed, full autocomplete support.</p>
 
-  <div class="section-label">Legal</div>
-  <h2>Terms &amp; Privacy</h2>
-  <p>GovBot is free to use and intended solely for mock-government roleplay. It is not affiliated with any real government or political organisation. In-simulation currency has no real-world monetary value.</p>
-  <div class="legal-links">
-    <a href="legal.html#tos">Terms of Service →</a>
-    <a href="legal.html#pp">Privacy Policy →</a>
+  <!-- DIVIDER -->
+  <div class="section-divider reveal">
+    <div class="div-line"></div>
+    <div class="div-glyph">§</div>
+    <div class="div-line"></div>
+  </div>
+
+  <!-- LEGAL -->
+  <div class="legal-strip reveal">
+    <p>GovBot is free to use and intended solely for mock-government roleplay. Not affiliated with any real government or political organisation. In-simulation currency has no monetary value.</p>
+    <div class="legal-links">
+      <a href="legal.html#tos">Terms of Service →</a>
+      <a href="legal.html#pp">Privacy Policy →</a>
+    </div>
   </div>
 
 </div>
 
+<!-- FOOTER -->
 <footer>
-  GovBot &nbsp;·&nbsp; Mock Government Discord Bot &nbsp;·&nbsp;
-  <a href="legal.html">Terms &amp; Privacy</a>
+  <p class="footer-seal">GovBot · Official Records</p>
+  <p class="footer-copy">
+    Mock Government Discord Bot &nbsp;·&nbsp;
+    <a href="legal.html">Terms &amp; Privacy</a>
+  </p>
 </footer>
 
+<script>
+  // ── Scroll reveal ──────────────────────────────────────────
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
