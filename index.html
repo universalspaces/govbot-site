@@ -577,6 +577,8 @@
 
     .command-list {
       padding: 14px;
+      max-height: 620px;
+      overflow: auto;
     }
 
     .command-item {
@@ -874,7 +876,7 @@
           </h1>
 
           <p>
-            Run elections, legislation, courts, political parties, constitutions and treasury systems from a single bot — built for serious mock-government communities.
+            Run elections, legislation, courts, political parties, constitutions and treasury systems from one Discord bot — 21 commands, 105 subcommands and 9 government systems.
           </p>
 
           <div class="hero-actions">
@@ -946,13 +948,13 @@
     <section aria-label="GovBot statistics">
       <div class="container stats-grid reveal">
         <div class="stat-card">
-          <strong>14+</strong>
+          <strong>9</strong>
           <span>Government systems</span>
         </div>
 
         <div class="stat-card">
-          <strong>100+</strong>
-          <span>Slash commands</span>
+          <strong>21</strong>
+          <span>Top-level commands</span>
         </div>
 
         <div class="stat-card">
@@ -961,8 +963,8 @@
         </div>
 
         <div class="stat-card">
-          <strong>∞</strong>
-          <span>Citizens supported</span>
+          <strong>105</strong>
+          <span>Subcommands</span>
         </div>
       </div>
     </section>
@@ -973,7 +975,7 @@
           <div class="kicker">Features</div>
           <h2>Everything your Discord government needs.</h2>
           <p>
-            GovBot replaces manual counting, scattered spreadsheets and messy roleplay workflows with clean Discord-native systems.
+            GovBot replaces manual counting, scattered spreadsheets and messy roleplay workflows with 9 Discord-native government systems.
           </p>
         </div>
 
@@ -1108,44 +1110,23 @@
           <div class="kicker">Commands</div>
           <h2>Discord-native from start to finish.</h2>
           <p>
-            Members never need a separate dashboard. GovBot is built around slash commands, autocomplete and server roles.
+            GovBot includes 21 top-level commands and 105 total subcommands, built around Discord slash commands, autocomplete and server roles.
           </p>
         </div>
 
         <div class="commands-layout reveal">
           <div class="command-list">
-            <div class="command-item active">
-              <code>/election create</code>
-              <span>Elections</span>
-            </div>
-            <div class="command-item">
-              <code>/vote</code>
-              <span>Voting</span>
-            </div>
-            <div class="command-item">
-              <code>/bill propose</code>
-              <span>Legislature</span>
-            </div>
-            <div class="command-item">
-              <code>/court file</code>
-              <span>Judiciary</span>
-            </div>
-            <div class="command-item">
-              <code>/treasury balance</code>
-              <span>Treasury</span>
-            </div>
-            <div class="command-item">
-              <code>/party create</code>
-              <span>Parties</span>
-            </div>
-            <div class="command-item">
-              <code>/constitution view</code>
-              <span>Law</span>
-            </div>
-            <div class="command-item">
-              <code>/setup wizard</code>
-              <span>Admin</span>
-            </div>
+            <div class="command-item active"><code>/election</code><span>8 subcommands</span></div>
+            <div class="command-item"><code>/bill</code><span>10 subcommands</span></div>
+            <div class="command-item"><code>/referendum</code><span>5 subcommands</span></div>
+            <div class="command-item"><code>/initiative</code><span>5 subcommands</span></div>
+            <div class="command-item"><code>/poll</code><span>6 subcommands</span></div>
+            <div class="command-item"><code>/party</code><span>9 subcommands</span></div>
+            <div class="command-item"><code>/court</code><span>10 subcommands</span></div>
+            <div class="command-item"><code>/treasury</code><span>12 subcommands</span></div>
+            <div class="command-item"><code>/admin</code><span>10 subcommands</span></div>
+            <div class="command-item"><code>/setup</code><span>Wizard</span></div>
+            <div class="command-item"><code>/help</code><span>Standalone</span></div>
           </div>
 
           <div class="command-demo">
@@ -1187,12 +1168,125 @@
       </div>
     </section>
 
+    <section id="overview">
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="kicker">Overview</div>
+          <h2>21 commands across 9 government systems.</h2>
+          <p>
+            Updated June 2026. GovBot is organized into civic systems so communities can enable structured roleplay without external tools.
+          </p>
+        </div>
+
+        <div class="features-grid systems-grid">
+          <article class="feature-card reveal">
+            <div>
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 10h16M7 10v10M17 10v10M5 20h14M12 4l8 4H4l8-4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h3>Elections</h3>
+              <p>FPTP and Ranked Choice voting, scheduling, candidacy registration, automated close and office assignment.</p>
+            </div>
+            <div class="tags"><span>/election</span><span>/vote</span><span>/remind</span></div>
+          </article>
+
+          <article class="feature-card reveal">
+            <div>
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <h3>Legislature</h3>
+              <p>Bill proposals, amendments, co-sponsorship, quorum enforcement, voting deadlines, law enactment and repeal.</p>
+            </div>
+            <div class="tags"><span>/bill</span></div>
+          </article>
+
+          <article class="feature-card reveal">
+            <div>
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M5 5h14v14H5zM8 9h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h3>Direct Democracy</h3>
+              <p>Referendums, initiatives, recall campaigns and informal polls with signature collection and result tracking.</p>
+            </div>
+            <div class="tags"><span>/referendum</span><span>/initiative</span><span>/poll</span><span>/recall</span></div>
+          </article>
+
+          <article class="feature-card reveal">
+            <div>
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M16 11c1.66 0 3-1.57 3-3.5S17.66 4 16 4s-3 1.57-3 3.5S14.34 11 16 11ZM8 11c1.66 0 3-1.57 3-3.5S9.66 4 8 4 5 5.57 5 7.5 6.34 11 8 11ZM3 20c.7-3 2.7-5 5-5s4.3 2 5 5M11 20c.6-2.4 2.2-4 4-4 2.3 0 4.3 1.8 5 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <h3>Political Parties</h3>
+              <p>Party creation, membership, leadership promotion and transfer, plus party-role assignment.</p>
+            </div>
+            <div class="tags"><span>/party</span></div>
+          </article>
+
+          <article class="feature-card reveal">
+            <div>
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4 21c1.5-4 4.3-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <h3>Citizens</h3>
+              <p>Citizen registration, optional oath, reputation tracking, citizen profiles and numbering.</p>
+            </div>
+            <div class="tags"><span>/citizen</span></div>
+          </article>
+
+          <article class="feature-card reveal">
+            <div>
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M7 7v13h10V7M9 11h6M9 15h6M10 4h4v3h-4V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h3>Offices & Term Limits</h3>
+              <p>Office creation, appointment, removal, full office history and configurable term limits per office.</p>
+            </div>
+            <div class="tags"><span>/office</span><span>/termlimit</span></div>
+          </article>
+
+          <article class="feature-card reveal">
+            <div>
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16M7 7h10M6 20h12M8 7l-4 7h8L8 7Zm8 0-4 7h8l-4-7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h3>Court & Impeachment</h3>
+              <p>Case filing, judge appointment, rulings, appeals and impeachment trials with voting and conclusion.</p>
+            </div>
+            <div class="tags"><span>/court</span><span>/impeach</span></div>
+          </article>
+
+          <article class="feature-card reveal">
+            <div>
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M6 7v13h12V7M9 11h6M9 15h4M9 4h6v3H9V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h3>Treasury</h3>
+              <p>Government balance, citizen wallets, grants, fines, payments, transfers, history and rich list.</p>
+            </div>
+            <div class="tags"><span>/treasury</span></div>
+          </article>
+
+          <article class="feature-card reveal">
+            <div>
+              <div class="feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l3 3v15H6V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 3v4h4M9 12h6M9 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <h3>Constitution</h3>
+              <p>Constitutional article drafting, ratification records and repeal.</p>
+            </div>
+            <div class="tags"><span>/constitution</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="cta">
       <div class="container">
         <div class="cta-card reveal">
           <h2>Launch your government in minutes.</h2>
           <p>
-            Add GovBot to your Discord server, configure your civic systems and start running elections, courts, parties and finances without manual work.
+            Add GovBot to your Discord server, configure your 9 civic systems and start using 21 commands with 105 subcommands without manual work.
           </p>
           <a class="button button-primary" href="https://discord.com/oauth2/authorize?client_id=1485007024541405225">Add to Discord</a>
         </div>
