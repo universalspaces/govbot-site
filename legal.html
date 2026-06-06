@@ -344,9 +344,9 @@
       <div class="doc-label">Legal Document</div>
       <h2 class="doc-title">Terms of Service</h2>
       <div class="doc-meta">
-        <span>📅 Effective: March 2026<</span>
-        <span>🔄 Last Updated: March 2026</span>
-        <span>📋 Version 1.0</span>
+        <span>📅 Effective: March 2026</span>
+        <span>🔄 Last Updated: June 2026</span>
+        <span>📋 Version 2.0</span>
       </div>
     </div>
 
@@ -368,15 +368,19 @@
       <h3 class="section-title">Description of Service</h3>
       <p>GovBot is a Discord bot designed to facilitate mock-government roleplay communities ("Servers"). It provides tools including:</p>
       <ul class="legal-list">
-        <li>Election management with First-Past-the-Post and Ranked Choice voting</li>
-        <li>Political party creation and membership tracking</li>
-        <li>Legislative bill proposals, co-sponsorship, and voting</li>
-        <li>A judicial system for filing and adjudicating court cases</li>
-        <li>Referendum and citizen initiative systems</li>
+        <li>Election management with First-Past-the-Post and Ranked Choice (instant-runoff) voting</li>
+        <li>Political party creation, membership tracking, and party-role assignment</li>
+        <li>Legislative bill proposals, co-sponsorship, amendment, and voting with optional quorum and deadlines</li>
+        <li>A judicial system for filing, adjudicating, and appealing court cases</li>
+        <li>Referendum and citizen initiative systems with signature collection</li>
+        <li>Recall campaigns against officeholders with configurable signature thresholds</li>
         <li>Impeachment proceedings for officeholders</li>
-        <li>Government office management with term limit enforcement</li>
+        <li>Government office management with configurable term limits and office history</li>
+        <li>A constitutional article system for drafting and ratifying founding documents</li>
+        <li>Informal polls with live result tracking</li>
         <li>A fictional treasury system with a government balance, citizen wallets, and in-simulation transactions</li>
-        <li>A web dashboard for viewing government data</li>
+        <li>Citizen registration with optional citizenship oath and reputation tracking</li>
+        <li>An interactive server setup wizard accessible via the <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/setup</code> command</li>
       </ul>
       <p>GovBot is intended solely for fictional, recreational, and educational mock-government roleplay. It is not affiliated with any real government, political party, or political organisation.</p>
     </div>
@@ -394,7 +398,7 @@
       <h3 class="section-title">Server Administrator Responsibilities</h3>
       <p>Server administrators who add GovBot are responsible for:</p>
       <ul class="legal-list">
-        <li>Configuring the bot appropriately for their community using <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/setup</code> commands</li>
+        <li>Configuring the bot appropriately for their community using the interactive <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/setup</code> wizard, which covers government name, channels, parliament role, citizenship settings, and default values</li>
         <li>Ensuring their server members are aware of and agree to these Terms</li>
         <li>Moderating the use of GovBot features within their server in accordance with Discord's guidelines</li>
         <li>Not using GovBot's administrative commands (such as <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/impeach</code>, <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/office appoint</code>, <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/election close</code>) to harass, manipulate, or disadvantage specific members unfairly</li>
@@ -426,9 +430,16 @@
     <!-- 6 -->
     <div class="section">
       <div class="section-num">Section 6</div>
-      <h3 class="section-title">Dashboard and OAuth2 Authentication</h3>
-      <p>The GovBot web dashboard uses Discord's OAuth2 system to authenticate users. By logging in to the dashboard you authorise GovBot to read your Discord user ID, username, avatar, and the list of servers you are a member of. This information is used only to display your profile and to filter the dashboard to servers you have access to.</p>
-      <p>Dashboard sessions are stored temporarily and expire after 24 hours of inactivity. You can revoke GovBot's OAuth2 access at any time from your Discord account's <strong>Authorized Apps</strong> settings.</p>
+      <h3 class="section-title">Automated Actions</h3>
+      <p>GovBot performs scheduled automated actions as part of its government simulation, including:</p>
+      <ul class="legal-list">
+        <li>Automatically opening elections at their scheduled start time and closing them at their end time, tallying results and assigning offices accordingly</li>
+        <li>Automatically closing referendums at their deadline and recording the result</li>
+        <li>Automatically rejecting bills that pass their voting deadline without an admin decision</li>
+        <li>Automatically expiring initiatives and recall campaigns that reach their collection deadline without meeting the required signature threshold</li>
+        <li>Sending DM reminders for elections to users who have explicitly opted in via <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/remind</code></li>
+      </ul>
+      <p>These actions are performed without further human input once the relevant deadlines are set. Server administrators retain the ability to manually override automated outcomes using administrative commands.</p>
     </div>
 
     <!-- 7 -->
@@ -498,9 +509,9 @@
       <div class="doc-label">Legal Document</div>
       <h2 class="doc-title">Privacy Policy</h2>
       <div class="doc-meta">
-        <span>📅 Effective: March 2026<</span>
-        <span>🔄 Last Updated: March 2026</span>
-        <span>📋 Version 1.0</span>
+        <span>📅 Effective: March 2026</span>
+        <span>🔄 Last Updated: June 2026</span>
+        <span>📋 Version 2.0</span>
       </div>
     </div>
 
@@ -556,6 +567,21 @@
             <td>To operate the fictional treasury system — balances and transactions have no real-world monetary value</td>
           </tr>
           <tr>
+            <td><strong>Recall &amp; Initiative Signatures</strong></td>
+            <td>The fact that you signed a recall petition or citizen initiative</td>
+            <td>To count signatures toward the required threshold and prevent duplicate signatures</td>
+          </tr>
+          <tr>
+            <td><strong>Constitution Records</strong></td>
+            <td>Constitutional articles you author or ratify, including article text and ratification timestamp</td>
+            <td>To maintain the server's constitutional documents as part of the government simulation</td>
+          </tr>
+          <tr>
+            <td><strong>Poll Votes</strong></td>
+            <td>Your option selection in informal polls (unless the poll is anonymous)</td>
+            <td>To prevent duplicate votes and to display live results</td>
+          </tr>
+          <tr>
             <td><strong>Activity Log</strong></td>
             <td>A record of government actions (who proposed a bill, who filed a case, etc.)</td>
             <td>To provide transparency and an audit trail within the server</td>
@@ -565,11 +591,7 @@
             <td>A record of administrative actions taken by server admins (dismissals, announcements, data changes)</td>
             <td>To provide accountability for administrative actions within the server</td>
           </tr>
-          <tr>
-            <td><strong>Dashboard Session</strong></td>
-            <td>A temporary session token after OAuth2 login; your Discord username and avatar URL</td>
-            <td>To keep you authenticated on the dashboard for up to 24 hours</td>
-          </tr>
+
           <tr>
             <td><strong>Reminder Preferences</strong></td>
             <td>Your user ID, election ID, and requested reminder time</td>
@@ -613,7 +635,6 @@
       <div class="section-num">Section 5</div>
       <h3 class="section-title">Data Storage and Security</h3>
       <p>GovBot stores all server data in a SQLite database hosted on the same server as the bot. Data is not shared across servers — each server's government data is fully isolated and only accessible to members of that server through the bot's commands and dashboard.</p>
-      <p>Dashboard authentication uses Discord's official OAuth2 system. We do not store your Discord password or token. Session data is stored server-side and expires automatically.</p>
       <p>While we take reasonable precautions to protect stored data, no system is perfectly secure. We cannot guarantee absolute protection against unauthorised access.</p>
     </div>
 
@@ -622,7 +643,7 @@
       <div class="section-num">Section 6</div>
       <h3 class="section-title">Data Sharing and Third Parties</h3>
       <p>GovBot does not sell, rent, or share your data with third parties. The only external service involved is <strong>Discord</strong>, through whose platform all interactions take place. Discord's own Privacy Policy governs the data Discord collects about you.</p>
-      <p>GovBot's dashboard is served as a standalone web application. It does not load any third-party advertising, tracking scripts, or analytics services.</p>
+      <p>The GovBot bot itself does not load any third-party advertising, tracking scripts, or analytics services.</p>
     </div>
 
     <!-- 7 -->
@@ -651,17 +672,14 @@
             <td>Treasury balances & transaction history</td>
             <td>Retained while GovBot is in the server; deleted on request. Wallet balances reset to zero if a citizen is de-registered</td>
           </tr>
-          <tr>
-            <td>Dashboard session tokens</td>
-            <td>Expire automatically after 24 hours of inactivity</td>
-          </tr>
+
           <tr>
             <td>Sent reminder records</td>
             <td>Marked as sent and retained briefly for deduplication, then ignored</td>
           </tr>
           <tr>
-            <td>Activity logs</td>
-            <td>Retained as part of the server's government history; the most recent 50 entries are displayed</td>
+            <td>Activity logs &amp; admin audit logs</td>
+            <td>Retained as part of the server's government history. Logs older than 30 days are pruned automatically; a maximum of 100,000 activity log entries and 50,000 admin log entries are kept at any time</td>
           </tr>
         </tbody>
       </table>
@@ -677,7 +695,7 @@
         <li><strong>Deletion:</strong> You may request deletion of your personal data from GovBot's database by contacting us through the support server. Note that some data (such as vote tallies and bill records) is aggregated and cannot be individually removed without corrupting the historical record</li>
         <li><strong>Correction:</strong> If incorrect data has been stored due to a bug, contact us and we will investigate</li>
         <li><strong>Opt-out of reminders:</strong> Use <code style="background:var(--surface2);padding:0.1em 0.35em;border-radius:3px;font-size:0.85em;color:var(--text)">/remind cancel</code> at any time to stop a pending DM reminder</li>
-        <li><strong>Revoke dashboard access:</strong> Remove GovBot's OAuth2 authorisation from Discord's Authorised Apps settings at any time</li>
+
       </ul>
       <div class="callout">
         <p><strong>Note for EU/EEA residents:</strong> If you are located in the European Economic Area, you may have additional rights under the General Data Protection Regulation (GDPR), including the right to data portability and to lodge a complaint with your local supervisory authority. Please contact us to exercise these rights.</p>
@@ -714,7 +732,7 @@
 
 </div><!-- /.page-wrap -->
 <div class="footer">
-  GovBot &nbsp;·&nbsp; Mock Government Discord Bot &nbsp;·&nbsp; Last updated March 2026 &nbsp;·&nbsp;
+  GovBot &nbsp;·&nbsp; Mock Government Discord Bot &nbsp;·&nbsp; Last updated June 2026 &nbsp;·&nbsp;
   <a href="index.html" style="color:var(--accent-lt);text-decoration:none">← Back to home</a>
 </div>
 
